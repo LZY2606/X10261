@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>信号言词庭 — HDL 波形断言复核</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>信号言词庭：HDL 波形断言、取样区域与最小失败轨迹</h1>
+  <div id="case-meta"></div>
+</header>
+<nav id="branches"></nav>
+<main>
+  <section id="tour">
+    <h2>案例导览</h2>
+    <ol id="tour-steps"></ol>
+    <button id="next-step">执行下一步</button>
+    <span id="tour-status"></span>
+  </section>
+  <section>
+    <h2>波形与采样区域（preponed）</h2>
+    <img id="wave" alt="waveform">
+  </section>
+  <section>
+    <h2>属性自动机与活跃线程</h2>
+    <div id="prop-tabs"></div>
+    <img id="automaton" alt="automaton">
+    <div id="verdict"></div>
+  </section>
+  <section>
+    <h2>最小反例</h2>
+    <img id="counterex" alt="counterexample">
+    <div id="cex-detail"></div>
+  </section>
+  <section>
+    <h2>候选与裁定</h2>
+    <div id="candidates"></div>
+    <div id="conflict" class="hidden"></div>
+  </section>
+  <section>
+    <h2>事件档案（机器可读）</h2>
+    <table id="events"><thead><tr>
+      <th>seq</th><th>id</th><th>kind</th><th>refs</th><th>depends_on</th><th>detail</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+  <section>
+    <h2>历史回溯</h2>
+    <label>回到事件 seq <input id="hist-seq" type="number" value="1" min="1"></label>
+    <button id="hist-load">查看当时状态</button>
+    <div id="history"></div>
+  </section>
+  <section>
+    <h2>档案导出 / 再导入</h2>
+    <button id="export">导出档案</button>
+    <button id="reimport">删除本地数据库并再导入</button>
+    <span id="export-status"></span>
+  </section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

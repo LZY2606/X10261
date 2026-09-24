@@ -1,0 +1,26 @@
+{
+  "title": "信号言词庭：HDL 波形断言、取样区域与最小失败轨迹",
+  "summary": "数字验证团队导入 VCD 波形、时钟域与一小门序列属性语言，在固定 preponed 取样语义下重放属性并缩减反例。",
+  "steps": [
+    {"id": "import", "title": "导入基线", "action": "import",
+     "detail": "导入 wave.vcd（100ps 时标、四态值）、clocks.json（posedge clk / rst 高有效）与 props.sva（5 条属性）。原波形值变化、四态逻辑、时标精度、时钟边沿、reset 区间、属性 AST 与语义版本全部保留。"},
+    {"id": "replay", "title": "基线重放", "action": "replay",
+     "detail": "固定取样语义下重放：p1/p3 失败并生成最小反例，p2 全部空匹配，p4 通过，p5 经 X/Z 传播得到显式 unknown 候选。reset 边界、多线程并存与时标坐标均记录为事件。"},
+    {"id": "adjudicate", "title": "人工裁定", "action": "adjudicate",
+     "detail": "接受 p1 的失败候选。裁定只追加事件，不改写原数据。"},
+    {"id": "revise-semver", "title": "参数修订", "action": "revise-semver",
+     "detail": "语义版本 1.0 → 1.1 新建解释分支：disable iff 中 X/Z 的处理差异显式记录，旧分支结论保留并标记失效范围。"},
+    {"id": "replay-semver", "title": "1.1 分支重放", "action": "replay-branch",
+     "detail": "在 semver-1.1 分支重放，比较 disable iff X 区间的线程状态差异。"},
+    {"id": "source-change", "title": "局部源数据改动", "action": "source-change",
+     "detail": "改用 wave2.vcd：时标 100ps→1ps（同一物理时间，不同精度），ack 脉冲移动。失效范围只覆盖依赖 ack 的 p1/p3，p2/p4/p5 保持有效。"},
+    {"id": "replay-source", "title": "改动后重放", "action": "replay-source",
+     "detail": "在新分支重放，观察失效范围与最小反例原点不变。"},
+    {"id": "conflict", "title": "制造版本冲突", "action": "conflict",
+     "detail": "两个复核窗口基于同一版本同时提交裁定，后提交者收到版本冲突与双方差异。"},
+    {"id": "undo", "title": "撤销裁定", "action": "undo",
+     "detail": "撤销最近一次裁定，恢复前一分支状态。"},
+    {"id": "export", "title": "导出档案", "action": "export",
+     "detail": "导出案例档案；删除本地数据库再导入后，身份、顺序与来源关系保持不变。"}
+  ]
+}

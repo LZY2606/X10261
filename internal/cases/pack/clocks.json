@@ -1,0 +1,11 @@
+{
+  "domains": [
+    {
+      "name": "main",
+      "clock": "clk",
+      "edge": "posedge",
+      "reset": "rst",
+      "reset_level": "1"
+    }
+  ]
+}

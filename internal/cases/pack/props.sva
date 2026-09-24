@@ -1,0 +1,14 @@
+// p1: overlapped implication with fixed delay; fails once ack drops.
+property p1 @main disable iff (en == 0) req |-> ##1 ack;
+
+// p2: non-overlapped implication with empty-match-capable antecedent.
+property p2 @main (empty: req2) |=> ack2;
+
+// p3: non-overlapped implication; fails when en rises before ack.
+property p3 @main en |=> ack;
+
+// p4: overlapped implication on the second request/ack pair; passes.
+property p4 @main req2 |-> ##1 ack2;
+
+// p5: X/Z propagation through a boolean antecedent; three-valued outcome.
+property p5 @main zsig |-> ##1 zsig;
